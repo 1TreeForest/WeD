@@ -1,0 +1,57 @@
+root@witcher /p/Witcher-experiment/early_experiments/microtests (1) /afl/afl-fuzz -i ./WICHR/work/initial_seeds -o ./WICHR/work/re -m 8G -M fuzzer-master -x ./WICHR/work/dict.txt -t 5000+ -- /usr/local/bin/php-cgi
+afl-fuzz 2.52b by <lcamtuf@google.com>
+[+] You have 8 CPU cores and 3 runnable tasks (utilization: 38%).
+[+] Try parallel jobs - see docs/parallel_fuzzing.txt.
+[*] Checking CPU core loadout...
+[+] Found a free CPU core, binding to #0.
+[*] Checking core_pattern...
+[*] Checking CPU scaling governor...
+[*] Using SHMID of '33'...
+shm_id=33 , tb[0]=6  0x7f76a530e000
+[*] Setting up output directories...
+[+] Output directory exists but deemed OK to reuse.
+[*] Deleting old session data...
+[+] Output dir cleanup successful.
+[*] Scanning './WICHR/work/initial_seeds'...
+[+] No auto-generated dictionary tokens to reuse.
+[*] Creating hard links for all input files...
+[*] Loading extra dictionary from './WICHR/work/dict.txt' (level 0)...
+[+] Loaded 78 extra tokens, size range 4 B to 88 B.
+[!] WARNING: Some tokens are relatively large (88 B) - consider trimming.
+[*] Validating target binary...
+[*] Attempting dry run with 'id:000000,orig:seed-0'...
+[*] Spinning up the fork server...
+here b4 3481645
+here after 3481645 3481646 
+here after 3481646 0 
+connecting up to stdout,
+fs status= 4 [AFL] Forkserver up
+[+] All right - fork server is up.
+	child_timeout=0 kill_signal=11, status=11
+
+[-] Oops, the program crashed with one of the test cases provided. There are
+    several possible explanations:
+
+    - The test case causes known crashes under normal working conditions. If
+      so, please remove it. The fuzzer should be seeded with interesting
+      inputs - but not ones that cause an outright crash.
+
+    - The current memory limit (8.00 GB) is too low for this program, causing
+      it to die due to OOM when parsing valid files. To fix this, try
+      bumping it up with the -m setting in the command line. If in doubt,
+      try something along the lines of:
+
+      ( ulimit -Sv $[8191 << 10]; /path/to/binary [...] <testcase )
+
+      Tip: you can use http://jwilk.net/software/recidivm to quickly
+      estimate the required amount of virtual memory for the binary. Also,
+      if you are using ASAN, see docs/notes_for_asan.txt.
+
+    - Least likely, there is a horrible bug in the fuzzer. If other options
+      fail, poke <lcamtuf@coredump.cx> for troubleshooting tips.
+
+[-] PROGRAM ABORT : Test case 'id:000000,orig:seed-0' results in a crash
+         Location : perform_dry_run(), afl-fuzz.c:3007
+
+root@witcher /p/Witcher-experiment/early_experiments/microtests (1) clwang23@PC172164815:/p/Witcher-experiment/early_experiments/microtests$ 
+
